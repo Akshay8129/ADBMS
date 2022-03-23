@@ -1,0 +1,289 @@
+student@student-OptiPlex-3050:~$ sudo mysql -u root -p
+[sudo] password for student: 
+Enter password: 
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 32
+Server version: 10.0.38-MariaDB-0ubuntu0.16.04.1 Ubuntu 16.04
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> use student
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+MariaDB [student]> create table clientmaster(client_no int,Name char(10),Adress varchar(20),city char(15),pincode int,state char(10));
+Query OK, 0 rows affected (0.20 sec)
+
+MariaDB [student]> alter table clientmaster modify client_no varchar(10);
+Query OK, 0 rows affected (0.56 sec)               
+MariaDB [student]> insert into clientmaster values('C0194','Manu','Celeste Slater','Roseville',96522,'Mankato Mississippi');
+Query OK, 1 row affected, 1 warning (0.02 sec)
+
+MariaDB [student]> insert into clientmaster values('C0195','Kyla Olsen','Ap #651-8679 Sodales Av.','Roseville',96522,'Mankato Mississippi');
+MariaDB [student]> insert into clientmaster values('C0195','Kyla Olsen','Ap #651-8679 Sodales','Tamuning',10855,'Mankato');
+Query OK, 1 row affected (0.04 sec)
+
+MariaDB [student]> insert into clientmaster values('C0196','Ina Moran','929 4189 Nunc Road','Lebanon',69409,'Dakota');
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [student]> insert into clientmaster values('C0197','Andria Russel','North_lane','bangloore',10564,'Karnataka');
+Query OK, 1 row affected, 1 warning (0.03 sec)
+
+MariaDB [student]> insert into clientmaster values('C0198','Kyla Olsen','north-east street','Aluva',683561,'Kerala');
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [student]> insert into clientmaster values('C0199','Andre Russel','North-caroleina','Newcastle',683561,'England');
+Query OK, 1 row affected, 1 warning (0.04 sec)
+
+MariaDB [student]> select * from clientmaster;
++-----------+------------+----------------------+-----------+---------+------------+
+| client_no | Name       | Adress               | city      | pincode | state      |
++-----------+------------+----------------------+-----------+---------+------------+
+| C0194     | Manu       | Celeste Slater       | Roseville |   96522 | Mankato Mi |
+| C0195     | Kyla Olsen | Ap #651-8679 Sodales | Roseville |   96522 | Mankato Mi |
+| C0195     | Kyla Olsen | Ap #651-8679 Sodales | Tamuning  |   10855 | Mankato    |
+| C0196     | Ina Moran  | 929 4189 Nunc Road   | Lebanon   |   69409 | Dakota     |
+| C0197     | Andria Rus | North_lane           | bangloore |   10564 | Karnataka  |
+| C0198     | Kyla Olsen | north-east street    | Aluva     |  683561 | Kerala     |
+| C0199     | Andre Russ | North-caroleina      | Newcastle |  683561 | England    |
++-----------+------------+----------------------+-----------+---------+------------+
+7 rows in set (0.00 sec)
+
+MariaDB [student]> insert into clientmaster values('C0200','Jaya','new street','London',52564,'England');
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [student]> select * from clientmaster;
++-----------+------------+----------------------+-----------+---------+------------+
+| client_no | Name       | Adress               | city      | pincode | state      |
++-----------+------------+----------------------+-----------+---------+------------+
+| C0194     | Manu       | Celeste Slater       | Roseville |   96522 | Mankato Mi |
+| C0195     | Kyla Olsen | Ap #651-8679 Sodales | Roseville |   96522 | Mankato Mi |
+| C0195     | Kyla Olsen | Ap #651-8679 Sodales | Tamuning  |   10855 | Mankato    |
+| C0196     | Ina Moran  | 929 4189 Nunc Road   | Lebanon   |   69409 | Dakota     |
+| C0197     | Andria Rus | North_lane           | bangloore |   10564 | Karnataka  |
+| C0198     | Kyla Olsen | north-east street    | Aluva     |  683561 | Kerala     |
+| C0199     | Andre Russ | North-caroleina      | Newcastle |  683561 | England    |
+| C0200     | Jaya       | new street           | London    |   52564 | England    |
++-----------+------------+----------------------+-----------+---------+------------+
+8 rows in set (0.00 sec)
+
+MariaDB [student]> select client_no and Name from clientmaster;
++--------------------+
+| client_no and Name |
++--------------------+
+|                  0 |
+|                  0 |
+|                  0 |
+|                  0 |
+|                  0 |
+|                  0 |
+|                  0 |
+|                  0 |
++--------------------+
+8 rows in set, 8 warnings (0.00 sec)
+
+MariaDB [student]> select client_no,Name from clientmaster;
++-----------+------------+
+| client_no | Name       |
++-----------+------------+
+| C0194     | Manu       |
+| C0195     | Kyla Olsen |
+| C0195     | Kyla Olsen |
+| C0196     | Ina Moran  |
+| C0197     | Andria Rus |
+| C0198     | Kyla Olsen |
+| C0199     | Andre Russ |
+| C0200     | Jaya       |
++-----------+------------+
+8 rows in set (0.00 sec)
+
+MariaDB [student]> select distinct(Name) from clientmaster;
++------------+
+| Name       |
++------------+
+| Manu       |
+| Kyla Olsen |
+| Ina Moran  |
+| Andria Rus |
+| Andre Russ |
+| Jaya       |
++------------+
+6 rows in set (0.00 sec)
+
+MariaDB [student]> select from clientmaster order by client_no,Adress,city;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'from clientmaster order by client_no,Adress,city' at line 1
+MariaDB [student]> select * from clientmaster order by client_no,Adress,city;
++-----------+------------+----------------------+-----------+---------+------------+
+| client_no | Name       | Adress               | city      | pincode | state      |
++-----------+------------+----------------------+-----------+---------+------------+
+| C0194     | Manu       | Celeste Slater       | Roseville |   96522 | Mankato Mi |
+| C0195     | Kyla Olsen | Ap #651-8679 Sodales | Roseville |   96522 | Mankato Mi |
+| C0195     | Kyla Olsen | Ap #651-8679 Sodales | Tamuning  |   10855 | Mankato    |
+| C0196     | Ina Moran  | 929 4189 Nunc Road   | Lebanon   |   69409 | Dakota     |
+| C0197     | Andria Rus | North_lane           | bangloore |   10564 | Karnataka  |
+| C0198     | Kyla Olsen | north-east street    | Aluva     |  683561 | Kerala     |
+| C0199     | Andre Russ | North-caroleina      | Newcastle |  683561 | England    |
+| C0200     | Jaya       | new street           | London    |   52564 | England    |
++-----------+------------+----------------------+-----------+---------+------------+
+8 rows in set (0.00 sec)
+
+MariaDB [student]> select * from clientmaster order by 'client_no','Adress','city';
++-----------+------------+----------------------+-----------+---------+------------+
+| client_no | Name       | Adress               | city      | pincode | state      |
++-----------+------------+----------------------+-----------+---------+------------+
+| C0194     | Manu       | Celeste Slater       | Roseville |   96522 | Mankato Mi |
+| C0195     | Kyla Olsen | Ap #651-8679 Sodales | Roseville |   96522 | Mankato Mi |
+| C0195     | Kyla Olsen | Ap #651-8679 Sodales | Tamuning  |   10855 | Mankato    |
+| C0196     | Ina Moran  | 929 4189 Nunc Road   | Lebanon   |   69409 | Dakota     |
+| C0197     | Andria Rus | North_lane           | bangloore |   10564 | Karnataka  |
+| C0198     | Kyla Olsen | north-east street    | Aluva     |  683561 | Kerala     |
+| C0199     | Andre Russ | North-caroleina      | Newcastle |  683561 | England    |
+| C0200     | Jaya       | new street           | London    |   52564 | England    |
++-----------+------------+----------------------+-----------+---------+------------+
+8 rows in set (0.00 sec)
+
+MariaDB [student]> delete * from clientmaster where pincode=10855
+    -> delete * from clientmaster where pincode=10855;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '* from clientmaster where pincode=10855
+delete * from clientmaster where pincode' at line 1
+MariaDB [student]> delete * from clientmaster where pincode=10855 delete * from clientmaster where pincode='10855';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '* from clientmaster where pincode=10855 delete * from clientmaster where pincode' at line 1
+MariaDB [student]> delete * from clientmaster where pincode=10855;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '* from clientmaster where pincode=10855' at line 1
+MariaDB [student]> delete * from clientmaster where pincode='10855';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '* from clientmaster where pincode='10855'' at line 1
+MariaDB [student]> insert into clientmaster values('C0193','Ram','second street','London',01464,'England');
+Query OK, 1 row affected (0.04 sec)
+
+MariaDB [student]> select * from clientmaster order by 'client_no','Adress','city';
++-----------+------------+----------------------+-----------+---------+------------+
+| client_no | Name       | Adress               | city      | pincode | state      |
++-----------+------------+----------------------+-----------+---------+------------+
+| C0194     | Manu       | Celeste Slater       | Roseville |   96522 | Mankato Mi |
+| C0195     | Kyla Olsen | Ap #651-8679 Sodales | Roseville |   96522 | Mankato Mi |
+| C0195     | Kyla Olsen | Ap #651-8679 Sodales | Tamuning  |   10855 | Mankato    |
+| C0196     | Ina Moran  | 929 4189 Nunc Road   | Lebanon   |   69409 | Dakota     |
+| C0197     | Andria Rus | North_lane           | bangloore |   10564 | Karnataka  |
+| C0198     | Kyla Olsen | north-east street    | Aluva     |  683561 | Kerala     |
+| C0199     | Andre Russ | North-caroleina      | Newcastle |  683561 | England    |
+| C0200     | Jaya       | new street           | London    |   52564 | England    |
+| C0193     | Ram        | second street        | London    |    1464 | England    |
++-----------+------------+----------------------+-----------+---------+------------+
+9 rows in set (0.00 sec)
+
+MariaDB [student]> select client_no,Name,Adress from clientmaster order by asc;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'asc' at line 1
+MariaDB [student]> select client_no,Name,Adress from clientmaster order by client_no asc;
++-----------+------------+----------------------+
+| client_no | Name       | Adress               |
++-----------+------------+----------------------+
+| C0193     | Ram        | second street        |
+| C0194     | Manu       | Celeste Slater       |
+| C0195     | Kyla Olsen | Ap #651-8679 Sodales |
+| C0195     | Kyla Olsen | Ap #651-8679 Sodales |
+| C0196     | Ina Moran  | 929 4189 Nunc Road   |
+| C0197     | Andria Rus | North_lane           |
+| C0198     | Kyla Olsen | north-east street    |
+| C0199     | Andre Russ | North-caroleina      |
+| C0200     | Jaya       | new street           |
++-----------+------------+----------------------+
+9 rows in set (0.00 sec)
+
+MariaDB [student]> select client_no,Name,Adress,city from clientmaster order by client_no asc;
++-----------+------------+----------------------+-----------+
+| client_no | Name       | Adress               | city      |
++-----------+------------+----------------------+-----------+
+| C0193     | Ram        | second street        | London    |
+| C0194     | Manu       | Celeste Slater       | Roseville |
+| C0195     | Kyla Olsen | Ap #651-8679 Sodales | Roseville |
+| C0195     | Kyla Olsen | Ap #651-8679 Sodales | Tamuning  |
+| C0196     | Ina Moran  | 929 4189 Nunc Road   | Lebanon   |
+| C0197     | Andria Rus | North_lane           | bangloore |
+| C0198     | Kyla Olsen | north-east street    | Aluva     |
+| C0199     | Andre Russ | North-caroleina      | Newcastle |
+| C0200     | Jaya       | new street           | London    |
++-----------+------------+----------------------+-----------+
+9 rows in set (0.00 sec)
+
+MariaDB [student]> select client_no,Name,Adress,city from clientmaster order by client_no desc;
++-----------+------------+----------------------+-----------+
+| client_no | Name       | Adress               | city      |
++-----------+------------+----------------------+-----------+
+| C0200     | Jaya       | new street           | London    |
+| C0199     | Andre Russ | North-caroleina      | Newcastle |
+| C0198     | Kyla Olsen | north-east street    | Aluva     |
+| C0197     | Andria Rus | North_lane           | bangloore |
+| C0196     | Ina Moran  | 929 4189 Nunc Road   | Lebanon   |
+| C0195     | Kyla Olsen | Ap #651-8679 Sodales | Roseville |
+| C0195     | Kyla Olsen | Ap #651-8679 Sodales | Tamuning  |
+| C0194     | Manu       | Celeste Slater       | Roseville |
+| C0193     | Ram        | second street        | London    |
++-----------+------------+----------------------+-----------+
+9 rows in set (0.00 sec)
+
+MariaDB [student]> select client_no,Name from clientmaster where client_no='C0200';
++-----------+------+
+| client_no | Name |
++-----------+------+
+| C0200     | Jaya |
++-----------+------+
+1 row in set (0.00 sec)
+
+MariaDB [student]> alter table clientmaster add column faxno int,telephone_no int;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'int' at line 1
+MariaDB [student]> alter table clientmaster add column 'faxno' int,'telephone_no' int;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''faxno' int,'telephone_no' int' at line 1
+MariaDB [student]> alter table clientmaster add column faxno int;
+Query OK, 0 rows affected (0.37 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [student]> alter table clientmaster add column telephone_no int;
+Query OK, 0 rows affected (0.35 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+MariaDB [student]> update student set faxno=0012,telephone_no=42985 where client_no=C0194;
+Query OK, 2 row affected (0.04 sec)
+MariaDB [student]> update student set faxno=5456,telephone_no=44597 where client_no=C0195;
+Query OK, 2 row affected (0.04 sec)
+MariaDB [student]> update student set faxno=4879,telephone_no=42565 where client_no=C0196;
+Query OK, 2 row affected (0.04 sec)
+MariaDB [student]> update student set faxno=4684,telephone_no=48795 where client_no=C0197;
+Query OK, 2 row affected (0.04 sec)
+MariaDB [student]> update student set faxno=7894,telephone_no=78494 where client_no=C0198;
+Query OK, 2 row affected (0.04 sec)
+MariaDB [student]> update student set faxno=1245,telephone_no=45794 where client_no=C0199;
+Query OK, 2 row affected (0.04 sec)
+MariaDB [student]> update student set faxno=7894,telephone_no=48416 where client_no=C0200;
+Query OK, 2 row affected (0.04 sec)
+MariaDB [student]> update student set faxno=1264,telephone_no=42658 where client_no=C0193;
+Query OK, 2 row affected (0.04 sec)
+
+MariaDB [student]> select * from clientmaster;
++-----------+------------+----------------------+-----------+---------+------------+-------+--------------+
+| client_no | Name       | Adress               | city      | pincode | state      | faxno | telephone_no |
++-----------+------------+----------------------+-----------+---------+------------+-------+--------------+
+| C0194     | Manu       | Celeste Slater       | Roseville |   96522 | Mankato Mi |  0012 |         42985|
+| C0195     | Kyla Olsen | Ap #651-8679 Sodales | Roseville |   96522 | Mankato Mi |  5456 |         44597|
+| C0195     | Kyla Olsen | Ap #651-8679 Sodales | Tamuning  |   10855 | Mankato    |  5456 |         44597|
+| C0196     | Ina Moran  | 929 4189 Nunc Road   | Lebanon   |   69409 | Dakota     |  4879 |         42565|
+| C0197     | Andria Rus | North_lane           | bangloore |   10564 | Karnataka  |  4684 |         48795|
+| C0198     | Kyla Olsen | north-east street    | Aluva     |  683561 | Kerala     |  7894 |         78494|
+| C0199     | Andre Russ | North-caroleina      | Newcastle |  683561 | England    |  1245 |         45794|
+| C0200     | Jaya       | new street           | London    |   52564 | England    |  7894 |         48416|
+| C0193     | Ram        | second street        | London    |    1464 | England    |  1264 |         42658|
++-----------+------------+----------------------+-----------+---------+------------+-------+--------------+
+9 rows in set (0.00 sec)
+
+MariaDB [student]> alter table clientmaster modify faxno varchar(10);
+Query OK, 9 rows affected (0.64 sec)               
+Records: 9  Duplicates: 0  Warnings: 0
+
+MariaDB [student]> truncate clientmaster;
+Query OK, 0 rows affected (0.41 sec)
+
+MariaDB [student]> select * from clientmaster;
+Empty set (0.00 sec)
+
+MariaDB [student]> 
