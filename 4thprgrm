@@ -1,0 +1,203 @@
+student@student-OptiPlex-3050:~$ sudo mysql -u root -p
+[sudo] password for student: 
+Enter password: 
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 33
+Server version: 10.0.38-MariaDB-0ubuntu0.16.04.1 Ubuntu 16.04
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> create database Akshay
+    -> ;
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [(none)]> use Akshay
+Database changed
+MariaDB [Akshay]> create table departments(department_id int primary key,department_name varchar(20));
+Query OK, 0 rows affected (0.23 sec)
+
+MariaDB [Akshay]> create table jobs(job_id int primary key,job_title varchar(15),min_salary int,max_salary int);Query OK, 0 rows affected (0.29 sec)
+
+MariaDB [Akshay]> create table employees(employee_id int primary key,first_name varchar(10),last_name varchar(10),email varchar(20),phone_number long,hire_date date,job_id int references jobs(job_id),salary int,manager_id int,department_id int references departments(department_id));
+Query OK, 0 rows affected (0.28 sec)
+
+MariaDB [Akshay]> insert into employees values(001,'Akshay','Mohan','akshay8129@gmail.com',9645240752,'1999-05-09',812,45000,123,120);
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [Akshay]> insert into employees values(002,'Arjun','Ajay','arjunaj123@gmail.com',9995425709,'1999-06-22',813,45000,124,121);
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [Akshay]> insert into employees values(003,'Ashwin','varghese','ashwin02@gmail.com',8129785433,'2000-02-12',814,55000,125,122);
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [Akshay]> insert into employees values(004,'Aiswarya','N.S','Aiswarya56@gmail.com',9388896331,'1999-03-22',815,35000,126,123);
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [Akshay]> insert into employees values(005,'Amal','Joy','Amal692@gmail.com',9895333625,'1999-07-26',816,40000,127,124);
+Query OK, 1 row affected (0.54 sec)
+
+
+MariaDB [Akshay]> select * from employees;
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+
+| employee_id | first_name | last_name | email                | phone_number | hire_date  | job_id | salary | manager_id | department_id |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+
+|           1 | Akshay     | Mohan     | akshay8129@gmail.com | 9645240752   | 1999-05-09 |    812 |  45000 |        123 |           120 |
+|           2 | Arjun      | Ajay      | arjunaj123@gmail.com | 9995425709   | 1999-06-22 |    813 |  45000 |        124 |           121 |
+|           3 | Ashwin     | varghese  | ashwin02@gmail.com   | 8129785433   | 2000-02-12 |    814 |  55000 |        125 |           122 |
+|           4 | Aiswarya   | N.S       | Aiswarya56@gmail.com | 9388896331   | 1999-03-22 |    815 |  35000 |        126 |           123 |
+|           5 | Amal       | Joy       | Amal692@gmail.com    | 9895333625   | 1999-07-26 |    816 |  40000 |        127 |           124 |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+
+5 rows in set (0.00 sec)
+MariaDB [Akshay]> insert into jobs values(812,'coding',30000,75000);
+Query OK, 1 row affected (0.02 sec)
+
+MariaDB [Akshay]> insert into jobs values(813,'server',30000,80000);
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [Akshay]> insert into jobs values(814,'hardware',30000,80000);
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [Akshay]> insert into jobs values(815,'coding',30000,75000);
+Query OK, 1 row affected (0.04 sec)
+
+
+MariaDB [Akshay]> insert into jobs values(816,'hr',30000,85000);
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [Akshay]> select * from jobs;
++--------+-----------+------------+------------+
+| job_id | job_title | min_salary | max_salary |
++--------+-----------+------------+------------+
+|    812 | coding    |      30000 |      75000 |
+|    813 | server    |      30000 |      80000 |
+|    814 | hardware  |      30000 |      80000 |
+|    815 | coding    |      30000 |      75000 |
+|    816 | hr        |      30000 |      85000 |
++--------+-----------+------------+------------+
+5 rows in set (0.00 sec)
+
+MariaDB [Akshay]> insert into departments values(120,'AS');
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [Akshay]> insert into departments values(121,'EV');
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [Akshay]> insert into departments values(123,'BS');
+Query OK, 1 row affected (0.05 sec)
+
+MariaDB [Akshay]> insert into departments values(124,'EV');
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [Akshay]> insert into departments values(125,'MG');
+Query OK, 1 row affected (0.04 sec)
+
+MariaDB [Akshay]> select * from departments;
++---------------+-----------------+
+| department_id | department_name |
++---------------+-----------------+
+|           120 | AS              |
+|           121 | EV              |
+|           123 | BS              |
+|           124 | EV              |
+|           125 | MG              |
++---------------+-----------------+
+5 rows in set (0.00 sec)
+MariaDB [Akshay]> alter table departments rename to deot;
+Query OK, 0 rows affected (0.12 sec)
+
+MariaDB [Akshay]> alter table employees modify salary smallint;
+Query OK, 5 rows affected, 5 warnings (0.58 sec)   
+Records: 5  Duplicates: 0  Warnings: 5
+
+MariaDB [Akshay]> alter table employees add commission int;
+Query OK, 0 rows affected (0.49 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [Akshay]> alter table employees drop hire_date;
+Query OK, 0 rows affected (0.34 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [Akshay]> select * from employees;
++-------------+------------+-----------+----------------------+--------------+--------+--------+------------+---------------+------------+
+| employee_id | first_name | last_name | email                | phone_number | job_id | salary | manager_id | department_id | commission |
++-------------+------------+-----------+----------------------+--------------+--------+--------+------------+---------------+------------+
+|           1 | Akshay     | Mohan     | akshay8129@gmail.com | 9645240752   |    812 |  32767 |        123 |           120 |       NULL |
+|           2 | Arjun      | Ajay      | arjunaj123@gmail.com | 9995425709   |    813 |  32767 |        124 |           121 |       NULL |
+|           3 | Ashwin     | varghese  | ashwin02@gmail.com   | 8129785433   |    814 |  32767 |        125 |           122 |       NULL |
+|           4 | Aiswarya   | N.S       | Aiswarya56@gmail.com | 9388896331   |    815 |  32767 |        126 |           123 |       NULL |
+|           5 | Amal       | Joy       | Amal692@gmail.com    | 9895333625   |    816 |  32767 |        127 |           124 |       NULL |
++-------------+------------+-----------+----------------------+--------------+--------+--------+------------+---------------+------------+
+5 rows in set (0.00 sec)
+
+
+MariaDB [Akshay]> select first_name,salary from employees where salary>30000;
++------------+--------+
+| first_name | salary |
++------------+--------+
+| Akshay     |  32767 |
+| Arjun      |  32767 |
+| Ashwin     |  32767 |
+| Aiswarya   |  32767 |
+| Amal       |  32767 |
++------------+--------+
+5 rows in set (0.00 sec)
+
+MariaDB [Akshay]> update employees set commission='5000' where employee_id=1;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [Akshay]> update employees set commission='4000' where employee_id=2;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [Akshay]> update employees set commission='3500' where employee_id=3;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [Akshay]> update employees set commission='5000' where employee_id=4;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [Akshay]> update employees set commission='5000' where employee_id=5;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [Akshay]> slect * from employees;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'slect * from employees' at line 1
+MariaDB [Akshay]> select * from employees;
++-------------+------------+-----------+----------------------+--------------+--------+--------+------------+---------------+------------+
+| employee_id | first_name | last_name | email                | phone_number | job_id | salary | manager_id | department_id | commission |
++-------------+------------+-----------+----------------------+--------------+--------+--------+------------+---------------+------------+
+|           1 | Akshay     | Mohan     | akshay8129@gmail.com | 9645240752   |    812 |  32767 |        123 |           120 |       5000 |
+|           2 | Arjun      | Ajay      | arjunaj123@gmail.com | 9995425709   |    813 |  32767 |        124 |           121 |       4000 |
+|           3 | Ashwin     | varghese  | ashwin02@gmail.com   | 8129785433   |    814 |  32767 |        125 |           122 |       3500 |
+|           4 | Aiswarya   | N.S       | Aiswarya56@gmail.com | 9388896331   |    815 |  32767 |        126 |           123 |       5000 |
+|           5 | Amal       | Joy       | Amal692@gmail.com    | 9895333625   |    816 |  32767 |        127 |           124 |       5000 |
++-------------+------------+-----------+----------------------+--------------+--------+--------+------------+---------------+------------+
+5 rows in set (0.00 sec)
+
+
+MariaDB [Akshay]> delete from employees where employee_id=4;
+Query OK, 1 row affected (0.04 sec)
+
+MariaDB [Akshay]> select * from employees;
++-------------+------------+-----------+----------------------+--------------+--------+--------+------------+---------------+------------+
+| employee_id | first_name | last_name | email                | phone_number | job_id | salary | manager_id | department_id | commission |
++-------------+------------+-----------+----------------------+--------------+--------+--------+------------+---------------+------------+
+|           1 | Akshay     | Mohan     | akshay8129@gmail.com | 9645240752   |    812 |  32767 |        123 |           120 |       5000 |
+|           2 | Arjun      | Ajay      | arjunaj123@gmail.com | 9995425709   |    813 |  32767 |        124 |           121 |       4000 |
+|           3 | Ashwin     | varghese  | ashwin02@gmail.com   | 8129785433   |    814 |  32767 |        125 |           122 |       3500 |
+|           5 | Amal       | Joy       | Amal692@gmail.com    | 9895333625   |    816 |  32767 |        127 |           124 |       5000 |
++-------------+------------+-----------+----------------------+--------------+--------+--------+------------+---------------+------------+
+4 rows in set (0.00 sec)
+
+MariaDB [Akshay]> truncate deot;
+Query OK, 0 rows affected (0.18 sec)
+MariaDB [Akshay]> select * from deot;
+Empty set (0.00 sec)
+
+
+
+
