@@ -108,21 +108,8 @@ MariaDB [student]> select * from emp;
 +-------+---------+-------------+--------+------------+-------+
 5 rows in set (0.00 sec)
 
-MariaDB [student]> select empname from emp in desc;
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'in desc' at line 1
-MariaDB [student]> select from emp where empname=desc;
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'from emp where empname=desc' at line 1
-MariaDB [student]> select empname from emp order by empname desc;
-+---------+
-| empname |
-+---------+
-| sam     |
-| Joy     |
-| Denny   |
-| Binoy   |
-| Alwin   |
-+---------+
-5 rows in set (0.00 sec)
+
+
 
 MariaDB [student]> select empname from emp order by empname;
 +---------+

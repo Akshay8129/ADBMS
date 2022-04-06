@@ -1,0 +1,96 @@
+MariaDB [Akshay]> create table customer(cid int,name varchar(20),salary int);Query OK, 0 rows affected (0.24 sec)
+
+MariaDB [Akshay]> insert into customer values(1,'Ajay',5000),(2,'Arun',6000),(3,'Binoy',7500);
+Query OK, 3 rows affected (0.00 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+MariaDB [Akshay]> select * from customer;+------+-------+--------+
+| cid  | name  | salary |
++------+-------+--------+
+|    1 | Ajay  |   5000 |
+|    2 | Arun  |   6000 |
+|    3 | Binoy |   7500 |
++------+-------+--------+
+3 rows in set (0.00 sec)
+
+MariaDB [Akshay]> commit;
+Query OK, 0 rows affected (0.04 sec)
+
+MariaDB [Akshay]> set autocommit=0;
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [Akshay]> delete from customer where cid=2;
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [Akshay]> select * from customer;
++------+-------+--------+
+| cid  | name  | salary |
++------+-------+--------+
+|    1 | Ajay  |   5000 |
+|    3 | Binoy |   7500 |
++------+-------+--------+
+2 rows in set (0.00 sec)
+
+MariaDB [Akshay]> rollback;
+Query OK, 0 rows affected (0.03 sec)
+
+MariaDB [Akshay]> select * from customer;
++------+-------+--------+
+| cid  | name  | salary |
++------+-------+--------+
+|    1 | Ajay  |   5000 |
+|    2 | Arun  |   6000 |
+|    3 | Binoy |   7500 |
++------+-------+--------+
+3 rows in set (0.00 sec)
+
+
+MariaDB [Akshay]> insert into customer values(4,'amal',5000);
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [Akshay]> select * from customer;
++------+-------+--------+
+| cid  | name  | salary |
++------+-------+--------+
+|    1 | Ajay  |   5000 |
+|    2 | Arun  |   6000 |
+|    3 | Binoy |   7500 |
+|    4 | amal  |   5000 |
++------+-------+--------+
+4 rows in set (0.00 sec)
+
+MariaDB [Akshay]> set savepoint s1;
+ERROR 1193 (HY000): Unknown system variable 'savepoint'
+MariaDB [Akshay]> savepoint s1;
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [Akshay]> delete from customer where name='ajay';
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [Akshay]> select * from customer;
++------+-------+--------+
+| cid  | name  | salary |
++------+-------+--------+
+|    2 | Arun  |   6000 |
+|    3 | Binoy |   7500 |
+|    4 | amal  |   5000 |
++------+-------+--------+
+3 rows in set (0.00 sec)
+
+MariaDB [Akshay]> savepoint s2;
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [Akshay]> rollback to s1;
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [Akshay]> select * from customer;
++------+-------+--------+
+| cid  | name  | salary |
++------+-------+--------+
+|    1 | Ajay  |   5000 |
+|    2 | Arun  |   6000 |
+|    3 | Binoy |   7500 |
+|    4 | amal  |   5000 |
++------+-------+--------+
+4 rows in set (0.00 sec)
+
