@@ -1,0 +1,182 @@
+student@student-OptiPlex-3050:~$ sudo mysql -u root -p
+[sudo] password for student: 
+Sorry, try again.
+[sudo] password for student: 
+Enter password: 
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 34
+Server version: 10.0.38-MariaDB-0ubuntu0.16.04.1 Ubuntu 16.04
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> use Akshay;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+MariaDB [Akshay]> create table author(id int primary key,name varchar(20),city varchar(20),country varchar(20));
+Query OK, 0 rows affected (0.24 sec)
+
+
+MariaDB [Akshay]> insert into author values(01,'manu','andheri','india');
+Query OK, 1 row affected (0.04 sec)
+
+MariaDB [Akshay]> insert into author values(02,'Rahul','Newyork','America');
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [Akshay]> insert into author values(03,'John','winden','Germany');
+Query OK, 1 row affected (0.04 sec)
+
+MariaDB [Akshay]> insert into author values(04,'Dev','Mumbai','india');
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [Akshay]> create table publisher(id int primary key,pname varchar(20),country varchar(20));
+Query OK, 0 rows affected (0.20 sec)
+
+MariaDB [Akshay]> insert into publisher values(001,'praja','india');
+Query OK, 1 row affected (0.04 sec)
+
+MariaDB [Akshay]> insert into publisher values(002,'Arihant','india');
+Query OK, 1 row affected (0.03 sec)
+MariaDB [Akshay]> insert into publisher values(003,'Pearson','british');
+Query OK, 1 row affected (0.04 sec)
+
+MariaDB [Akshay]> insert into publisher values(004,'Thomson','canada');
+Query OK, 1 row affected (0.04 sec)
+
+MariaDB [Akshay]> create table category(id int primary key,description varchar(50));
+Query OK, 0 rows affected (0.23 sec)
+
+MariaDB [Akshay]> insert into category values(01,'fiction');
+Query OK, 1 row affected (0.04 sec)
+
+MariaDB [Akshay]> insert into category values(02,'biography');
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [Akshay]> insert into category values(03,'architecture');
+Query OK, 1 row affected (0.04 sec)
+
+MariaDB [Akshay]> create table books(bookid int,title varchar(20),authorid int references author(id),publisherid int references publisher(id),categoryid int references category(id),year year,price int);
+Query OK, 0 rows affected (0.23 sec)
+
+
+MariaDB [Akshay]> insert into books values(1001,'A time to kill',03,001,01,1997,500);
+Query OK, 1 row affected (0.04 sec)
+
+MariaDB [Akshay]> insert into books values(1002,'the house of mirth',01,002,02,1996,800);
+Query OK, 1 row affected (0.02 sec)
+
+MariaDB [Akshay]> insert into books values(1003,'east of eden',02,003,03,1998,850);Query OK, 1 row affected (0.04 sec)
+
+MariaDB [Akshay]> insert into books values(1004,'the sun also rises',04,004,04,1999,500);
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [Akshay]> select * from author;
++----+-------+---------+---------+
+| id | name  | city    | country |
++----+-------+---------+---------+
+|  1 | manu  | andheri | india   |
+|  2 | Rahul | Newyork | America |
+|  3 | John  | winden  | Germany |
+|  4 | Dev   | Mumbai  | india   |
++----+-------+---------+---------+
+4 rows in set (0.00 sec)
+
+MariaDB [Akshay]> select * from publisher;
++----+---------+---------+
+| id | pname   | country |
++----+---------+---------+
+|  1 | praja   | india   |
+|  2 | Arihant | india   |
+|  3 | Pearson | british |
+|  4 | Thomson | canada  |
++----+---------+---------+
+4 rows in set (0.00 sec)
+
+MariaDB [Akshay]> select * from category;
++----+--------------+
+| id | description  |
++----+--------------+
+|  1 | fiction      |
+|  2 | biography    |
+|  3 | architecture |
+|  4 | humor        |
++----+--------------+
+4 rows in set (0.00 sec)
+
+MariaDB [Akshay]> select * from books;
++--------+--------------------+----------+-------------+------------+------+-------+
+| bookid | title              | authorid | publisherid | categoryid | year | price |
++--------+--------------------+----------+-------------+------------+------+-------+
+|   1001 | A time to kill     |        3 |           1 |          1 | 1997 |   500 |
+|   1002 | the house of mirth |        1 |           2 |          2 | 1996 |   800 |
+|   1003 | east of eden       |        2 |           3 |          3 | 1998 |   850 |
+|   1004 | the sun also rises |        4 |           4 |          4 | 1999 |   500 |
++--------+--------------------+----------+-------------+------------+------+-------+
+4 rows in set (0.00 sec)
+
+MariaDB [Akshay]> alter table books add primary key(bookid);
+Query OK, 4 rows affected (0.70 sec)               
+Records: 4  Duplicates: 0  Warnings: 0
+
+MariaDB [Akshay]> select bookid,title,price from books;
++--------+--------------------+-------+
+| bookid | title              | price |
++--------+--------------------+-------+
+|   1001 | A time to kill     |   500 |
+|   1002 | the house of mirth |   800 |
+|   1003 | east of eden       |   850 |
+|   1004 | the sun also rises |   500 |
++--------+--------------------+-------+
+4 rows in set (0.00 sec)
+
+MariaDB [Akshay]> select title from books where price>500;
++--------------------+
+| title              |
++--------------------+
+| the house of mirth |
+| east of eden       |
++--------------------+
+2 rows in set (0.00 sec)
+
+
+MariaDB [Akshay]> select title from books where categoryid in(select id from category where description!='fiction');
++--------------------+
+| title              |
++--------------------+
+| the house of mirth |
+| east of eden       |
+| the sun also rises |
++--------------------+
+3 rows in set (0.00 sec)
+
+
+MariaDB [Akshay]> select * from books where title like 't%';
++--------+--------------------+----------+-------------+------------+------+-------+
+| bookid | title              | authorid | publisherid | categoryid | year | price |
++--------+--------------------+----------+-------------+------------+------+-------+
+|   1002 | the house of mirth |        1 |           2 |          2 | 1996 |   800 |
+|   1004 | the sun also rises |        4 |           4 |          4 | 1999 |   500 |
++--------+--------------------+----------+-------------+------------+------+-------+
+2 rows in set (0.00 sec)
+
+MariaDB [Akshay]> select title,author.name,publisher.pname from books left join author on author.id=books.authorid left join publisher on publisher.id=books.publisherid where year in(1996,1997,1998); 
++--------------------+-------+---------+
+| title              | name  | pname   |
++--------------------+-------+---------+
+| A time to kill     | John  | praja   |
+| the house of mirth | manu  | Arihant |
+| east of eden       | Rahul | Pearson |
++--------------------+-------+---------+
+3 rows in set (0.00 sec)
+MariaDB [Akshay]> select * from books where price between 600 and 800;
++--------+--------------------+----------+-------------+------------+------+-------+
+| bookid | title              | authorid | publisherid | categoryid | year | price |
++--------+--------------------+----------+-------------+------------+------+-------+
+|   1002 | the house of mirth |        1 |           2 |          2 | 1996 |   800 |
++--------+--------------------+----------+-------------+------------+------+-------+
+1 row in set (0.00 sec)
+
+
