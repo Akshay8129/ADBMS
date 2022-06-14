@@ -1,0 +1,82 @@
+
+
+MariaDB [(none)]> use Akshay;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+MariaDB [Akshay]> create table employee(emp_id int,emo_name varchar(20),city varchar(30),salary int,age int);
+Query OK, 0 rows affected (0.23 sec)
+
+MariaDB [Akshay]> insert into employee values(1,'Angelina','chicago',200000,30),(2,'Robert','austin',300000,26),(3,'christian','denver',100000,42),(4,'kristen','washinton',500000,29),(5,'russell','los angels',200000,36),(6,'mary','canada',600000,48);
+Query OK, 6 rows affected (0.04 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+MariaDB [Akshay]> create table project(project_no int,emp_id int, department varchar(20));
+Query OK, 0 rows affected (0.26 sec)
+
+MariaDB [Akshay]> insert into project values(101,1,'testing'),(101,2,'development'),(103,3,'designing'),(104,4,'development');
+Query OK, 4 rows affected (0.03 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+MariaDB [Akshay]> select * from employee;
++--------+-----------+------------+--------+------+
+| emp_id | emo_name  | city       | salary | age  |
++--------+-----------+------------+--------+------+
+|      1 | Angelina  | chicago    | 200000 |   30 |
+|      2 | Robert    | austin     | 300000 |   26 |
+|      3 | christian | denver     | 100000 |   42 |
+|      4 | kristen   | washinton  | 500000 |   29 |
+|      5 | russell   | los angels | 200000 |   36 |
+|      6 | mary      | canada     | 600000 |   48 |
++--------+-----------+------------+--------+------+
+6 rows in set (0.00 sec)
+
+MariaDB [Akshay]> select * from project;
++------------+--------+-------------+
+| project_no | emp_id | department  |
++------------+--------+-------------+
+|        101 |      1 | testing     |
+|        101 |      2 | development |
+|        103 |      3 | designing   |
+|        104 |      4 | development |
++------------+--------+-------------+
+4 rows in set (0.00 sec)
+
+MariaDB [Akshay]> select employee.emo_name,project.department from employee inner join project on employee.emp_id=project.emp_id;
++-----------+-------------+
+| emo_name  | department  |
++-----------+-------------+
+| Angelina  | testing     |
+| Robert    | development |
+| christian | designing   |
+| kristen   | development |
++-----------+-------------+
+4 rows in set (0.00 sec)
+
+MariaDB [Akshay]> select employee.emo_name,project.department from employee left join project on employee.emp_id=project.emp_id;
++-----------+-------------+
+| emo_name  | department  |
++-----------+-------------+
+| Angelina  | testing     |
+| Robert    | development |
+| christian | designing   |
+| kristen   | development |
+| russell   | NULL        |
+| mary      | NULL        |
++-----------+-------------+
+6 rows in set (0.00 sec)
+
+MariaDB [Akshay]> select employee.emo_name,project.department from employee right join project on employee.emp_id=project.emp_id;
++-----------+-------------+
+| emo_name  | department  |
++-----------+-------------+
+| Angelina  | testing     |
+| Robert    | development |
+| christian | designing   |
+| kristen   | development |
++-----------+-------------+
+4 rows in set (0.00 sec)
+
+
+

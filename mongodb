@@ -1,0 +1,86 @@
+student@student-OptiPlex-3050:~$ sudo service mongod start
+[sudo] password for student: 
+student@student-OptiPlex-3050:~$ status
+unity7 start/running, process 3099
+student@student-OptiPlex-3050:~$ mongo --quiet
+> use emp;
+switched to db emp
+> db.createCollection("Empdetails");
+{ "ok" : 1 }
+> db.Empdetails.insert({name:"Bhuvan",age:30,email:"bhuvan@gps.com",salary:5000})
+WriteResult({ "nInserted" : 1 })
+> db.Empdetails.insert({name:"Mohan",age:32,email:"Mohan@gps.com",salary:4000})
+WriteResult({ "nInserted" : 1 })
+> db.Empdetails.insert({name:"Raju",age:29,email:"Raju@gps.com",salary:6000})
+WriteResult({ "nInserted" : 1 })
+> db.Empdetails.insert({name:"Manu",age:29,email:"Manu@gps.com",salary:5500})
+WriteResult({ "nInserted" : 1 })
+> db.Empdetails.insert({name:"Ram",age:31,email:"Ram@gps.com",salary:4500})
+WriteResult({ "nInserted" : 1 })
+> db.Empdetail.find();
+> db.Empdetails.find();
+{ "_id" : ObjectId("62a864c5cecb8dec506edfe2"), "name" : "Bhuvan", "age" : 30, "email" : "bhuvan@gps.com", "salary" : 5000 }
+{ "_id" : ObjectId("62a864f6cecb8dec506edfe3"), "name" : "Mohan", "age" : 32, "email" : "Mohan@gps.com", "salary" : 4000 }
+{ "_id" : ObjectId("62a8651ececb8dec506edfe4"), "name" : "Raju", "age" : 29, "email" : "Raju@gps.com", "salary" : 6000 }
+{ "_id" : ObjectId("62a86539cecb8dec506edfe5"), "name" : "Manu", "age" : 29, "email" : "Manu@gps.com", "salary" : 5500 }
+{ "_id" : ObjectId("62a86581cecb8dec506edfe6"), "name" : "Ram", "age" : 31, "email" : "Ram@gps.com", "salary" : 4500 }
+> db.Empdetails.findOne({name:"Mohan"});
+{
+	"_id" : ObjectId("62a864f6cecb8dec506edfe3"),
+	"name" : "Mohan",
+	"age" : 32,
+	"email" : "Mohan@gps.com",
+	"salary" : 4000
+}
+> db.Empdetails.find({salary:{$gte:5000}});
+{ "_id" : ObjectId("62a864c5cecb8dec506edfe2"), "name" : "Bhuvan", "age" : 30, "email" : "bhuvan@gps.com", "salary" : 5000 }
+{ "_id" : ObjectId("62a8651ececb8dec506edfe4"), "name" : "Raju", "age" : 29, "email" : "Raju@gps.com", "salary" : 6000 }
+{ "_id" : ObjectId("62a86539cecb8dec506edfe5"), "name" : "Manu", "age" : 29, "email" : "Manu@gps.com", "salary" : 5500 }
+
+> db.Empdetails.find({name:/^R/});
+{ "_id" : ObjectId("62a8651ececb8dec506edfe4"), "name" : "Raju", "age" : 29, "email" : "Raju@gps.com", "salary" : 6000 }
+{ "_id" : ObjectId("62a86581cecb8dec506edfe6"), "name" : "Ram", "age" : 31, "email" : "Ram@gps.com", "salary" : 4500 }
+> db.Empdetails.find({name:/^R|^M/});
+{ "_id" : ObjectId("62a864f6cecb8dec506edfe3"), "name" : "Mohan", "age" : 32, "email" : "Mohan@gps.com", "salary" : 4000 }
+{ "_id" : ObjectId("62a8651ececb8dec506edfe4"), "name" : "Raju", "age" : 29, "email" : "Raju@gps.com", "salary" : 6000 }
+{ "_id" : ObjectId("62a86539cecb8dec506edfe5"), "name" : "Manu", "age" : 29, "email" : "Manu@gps.com", "salary" : 5500 }
+{ "_id" : ObjectId("62a86581cecb8dec506edfe6"), "name" : "Ram", "age" : 31, "email" : "Ram@gps.com", "salary" : 4500 }
+> db.Empdetails.find({name:{$nin:["Mohan","Raju","Bhuvan"]}});
+{ "_id" : ObjectId("62a86539cecb8dec506edfe5"), "name" : "Manu", "age" : 29, "email" : "Manu@gps.com", "salary" : 5500 }
+{ "_id" : ObjectId("62a86581cecb8dec506edfe6"), "name" : "Ram", "age" : 31, "email" : "Ram@gps.com", "salary" : 4500 }
+
+> db.Empdetails.find({name:{$in:["Mohan","Raju","Bhuvan"]}});
+{ "_id" : ObjectId("62a864c5cecb8dec506edfe2"), "name" : "Bhuvan", "age" : 30, "email" : "bhuvan@gps.com", "salary" : 5000 }
+{ "_id" : ObjectId("62a864f6cecb8dec506edfe3"), "name" : "Mohan", "age" : 32, "email" : "Mohan@gps.com", "salary" : 4000 }
+{ "_id" : ObjectId("62a8651ececb8dec506edfe4"), "name" : "Raju", "age" : 29, "email" : "Raju@gps.com", "salary" : 6000 }
+
+> db.Empdetails.find({age:{$lt:30}},{name:1,salary:1});
+{ "_id" : ObjectId("62a8651ececb8dec506edfe4"), "name" : "Raju", "salary" : 6000 }
+{ "_id" : ObjectId("62a86539cecb8dec506edfe5"), "name" : "Manu", "salary" : 5500 }
+
+> db.Empdetails.find({$and:[{age:{$lt:30}},{salary:{$gt:500}}]});
+{ "_id" : ObjectId("62a8651ececb8dec506edfe4"), "name" : "Raju", "age" : 29, "email" : "Raju@gps.com", "salary" : 6000 }
+{ "_id" : ObjectId("62a86539cecb8dec506edfe5"), "name" : "Manu", "age" : 29, "email" : "Manu@gps.com", "salary" : 5500 }
+db.Empdetails.find({$and:[{age:{$lt:30}},{salary:{$gt:500}}]});
+{ "_id" : ObjectId("62a8651ececb8dec506edfe4"), "name" : "Raju", "age" : 29, "email" : "Raju@gps.com", "salary" : 6000 }
+{ "_id" : ObjectId("62a86539cecb8dec506edfe5"), "name" : "Manu", "age" : 29, "email" : "Manu@gps.com", "salary" : 5500 }
+
+
+> db.Empdetails.update({name:"Mohan"},{$set:{email:"neil@gps.com"}});
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.Empdetails.findOneAndUpdate({name:"Mohan"},{$set:{email:"neil@gps.com"}});
+{
+	"_id" : ObjectId("62a864f6cecb8dec506edfe3"),
+	"name" : "Mohan",
+	"age" : 32,
+	"email" : "neil@gps.com",
+	"salary" : 4000
+}
+
+> db.Empdetails.deleteMany({age:{$gt:56}});
+{ "acknowledged" : true, "deletedCount" : 0 }
+> db.Empdetails.update({name:"Mohan"},{$set:{age:57}});
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.Empdetails.deleteMany({age:{$gt:56}});
+{ "acknowledged" : true, "deletedCount" : 1 }
+
